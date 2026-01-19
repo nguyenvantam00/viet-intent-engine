@@ -1,0 +1,30 @@
+name: Format Check
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  check-format:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Check Python formatting with black
+      uses: psf/black@stable
+      with:
+        options: "--check --verbose"
+        version: "23.1.0"
+    
+    - name: Check C++ formatting
+      run: |
+        # Check for clang-format (optional)
+        if command -v clang-format &> /dev/null; then
+          echo "Checking C++ formatting..."
+          # Add clang-format check here if desired
+        else
+          echo "clang-format not installed, skipping C++ format check"
+        fi

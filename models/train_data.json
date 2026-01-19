@@ -1,0 +1,107 @@
+{
+    "greeting": {
+        "patterns": [
+            "xin chào",
+            "chào bạn",
+            "chào anh",
+            "chào chị",
+            "chào em",
+            "chào ông",
+            "chào bà",
+            "chào cô",
+            "chào chú",
+            "chào mọi người",
+            "chào quý khách",
+            "hello",
+            "hi",
+            "chao",
+            "chao ban",
+            "chao anh",
+            "chao chi",
+            "chao em",
+            "chao ong",
+            "chao ba",
+            "chao co",
+            "chao chu",
+            "chao moi nguoi",
+            "chao quy khach",
+            "helo",
+            "hí",
+            "chao buoi sang",
+            "chao buoi chieu",
+            "chao buoi toi",
+            "chào buổi sáng",
+            "chào buổi chiều",
+            "chào buổi tối"
+        ],
+        "keywords": ["chào", "xin", "hello", "hi", "chao", "helo"],
+        "threshold": 0.4,
+        "response": "Xin chào! Tôi có thể giúp gì cho bạn?"
+    },
+
+    "order_food": {
+        "patterns": [
+            "tôi muốn đặt món",
+            "cho tôi đặt đồ ăn",
+            "tôi muốn gọi món",
+            "đặt đồ ăn giúp tôi",
+            "cho tôi order món",
+            "tôi muốn order đồ ăn",
+            "đặt món ăn",
+            "gọi món",
+            "toi muon dat mon",
+            "cho toi dat do an",
+            "toi muon goi mon",
+            "dat do an giup toi",
+            "cho toi order mon",
+            "toi muon order do an",
+            "dat mon an",
+            "goi mon"
+        ],
+        "keywords": ["đặt", "món", "đồ ăn", "gọi", "order", "thức ăn", "dat", "mon", "do an", "goi", "thuc an"],
+        "threshold": 0.5,
+        "response": "Bạn muốn đặt món gì ạ?"
+    },
+
+    "ask_price": {
+        "patterns": [
+            "bao nhiêu tiền",
+            "giá bao nhiêu",
+            "có giá không",
+            "chi phí thế nào",
+            "bao nhieu tien",
+            "gia bao nhieu",
+            "co gia khong",
+            "chi phi the nao",
+            "giá cả thế nào",
+            "giá như thế nào",
+            "tính tiền thế nào",
+            "gia ca the nao",
+            "gia nhu the nao",
+            "tinh tien the nao"
+        ],
+        "keywords": ["giá", "tiền", "bao nhiêu", "chi phí", "tính tiền", "gia", "tien", "bao nhieu", "chi phi", "tinh tien"],
+        "threshold": 0.5,
+        "response": "Bạn muốn hỏi giá sản phẩm nào ạ?"
+    },
+
+    "ask_time": {
+        "patterns": [
+            "mấy giờ rồi",
+            "thời gian hiện tại",
+            "cho hỏi giờ",
+            "bây giờ là mấy giờ",
+            "may gio roi",
+            "thoi gian hien tai",
+            "cho hoi gio",
+            "bay gio la may gio",
+            "hiện tại mấy giờ",
+            "bây giờ mấy giờ rồi",
+            "hien tai may gio",
+            "bay gio may gio roi"
+        ],
+        "keywords": ["giờ", "thời gian", "mấy giờ", "bao giờ", "gio", "thoi gian", "may gio", "bao gio"],
+        "threshold": 0.5,
+        "response": "Hiện tại là {time}"
+    }
+}

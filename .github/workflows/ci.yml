@@ -1,0 +1,138 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  release:
+    types: [published]
+
+jobs:
+  build-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python-version: ['3.8', '3.9', '3.10', '3.11']
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install system dependencies (Ubuntu)
+      if: runner.os == 'Linux'
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y g++ cmake
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pybind11 pytest numpy
+    
+    - name: Build Python extension
+      run: |
+        cd python
+        python setup.py build_ext --inplace
+    
+    - name: Run Python tests
+      run: |
+        cd python
+        python -c "
+import sys
+sys.path.insert(0, '.')
+try:
+    import viet_intent
+    print('✅ Import successful')
+    engine = viet_intent.IntentEngine()
+    
+    # Basic tests
+    tests = [
+        ('xin chào', 'greeting'),
+        ('tôi muốn đặt phở', 'order_food'),
+        ('giá bao nhiêu', 'ask_price'),
+        ('mấy giờ rồi', 'ask_time'),
+        ('cảm ơn', 'thank_you'),
+        ('tạm biệt', 'goodbye')
+    ]
+    
+    passed = 0
+    for text, expected in tests:
+        result = engine.detect(text)
+        if result.intent == expected:
+            passed += 1
+            print(f'✅ \"{text}\" -> {result.intent}')
+        else:
+            print(f'❌ \"{text}\" -> {result.intent} (expected: {expected})')
+    
+    print(f'\\n📊 Test Results: {passed}/{len(tests)} passed')
+    if passed == len(tests):
+        print('✅ All tests passed!')
+    else:
+        sys.exit(1)
+        
+except Exception as e:
+    print(f'❌ Error: {e}')
+    import traceback
+    traceback.print_exc()
+    sys.exit(1)
+"
+    
+    - name: Build with CMake
+      run: |
+        mkdir build
+        cd build
+        cmake ..
+        make
+    
+    - name: Upload build artifacts
+      if: success()
+      uses: actions/upload-artifact@v3
+      with:
+        name: build-${{ matrix.os }}-py${{ matrix.python-version }}
+        path: |
+          python/viet_intent*.so
+          python/build/
+
+  release:
+    needs: build-test
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    
+    - name: Install build tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install build twine
+    
+    - name: Build package
+      run: |
+        cd python
+        python -m build
+    
+    - name: Check package
+      run: |
+        cd python
+        twine check dist/*
+    
+    - name: Publish to PyPI
+      env:
+        TWINE_USERNAME: __token__
+        TWINE_PASSWORD: ${{ secrets.PYPI_API_TOKEN }}
+      run: |
+        cd python
+        twine upload dist/*
