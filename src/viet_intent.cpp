@@ -1,8 +1,8 @@
 #include "viet_intent.h"
 #include "intent_detector.h"
 #include "text_preprocessor.h"
-#include <iostream>  // THÊM DÒNG NÀY
-#include <string>    // THÊM DÒNG NÀY (nếu cần)
+#include <iostream>
+#include <string>
 
 namespace VietIntent {
 
@@ -56,4 +56,4 @@ void IntentEngine::save_patterns(const std::string& filepath) {
               << " (not implemented in this version)" << std::endl;
 }
 
-} // namespace VietIntent
+}

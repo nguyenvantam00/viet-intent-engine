@@ -22,7 +22,6 @@ public:
     IntentDetector();
     ~IntentDetector();
 
-    // Sử dụng forward-declared IntentResult
     IntentResult detect(const std::string& text);
 
     void add_intent(const std::string& intent_name,
@@ -36,6 +35,6 @@ private:
     std::unique_ptr<Impl> pimpl;
 };
 
-} // namespace VietIntent
+}
 
 #endif

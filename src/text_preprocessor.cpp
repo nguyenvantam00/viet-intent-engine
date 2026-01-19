@@ -141,10 +141,8 @@ std::string TextPreprocessor::remove_diacritics(const std::string& text) {
         // Kiểm tra xem có trong map dấu không
         auto it = DIACRITIC_MAP.find(ch);
         if (it != DIACRITIC_MAP.end()) {
-            // Thay thế bằng ký tự không dấu
             result += it->second;
         } else {
-            // Giữ nguyên
             result += ch;
         }
 
@@ -156,7 +154,7 @@ std::string TextPreprocessor::remove_diacritics(const std::string& text) {
 
 std::string TextPreprocessor::standardize_vietnamese(const std::string& text) {
     std::string result = normalize(text);
-    // Đã được xử lý dấu trong normalize()
+    //xử lý dấu trong normalize()
     return result;
 }
 
@@ -166,8 +164,7 @@ std::vector<std::string> TextPreprocessor::word_segmentation(const std::string& 
 
 char TextPreprocessor::remove_tone(char c) {
     // Đơn giản hóa: chỉ xử lý ASCII
-    // Đối với ký tự tiếng Việt, cần xử lý trong remove_diacritics
     return std::tolower(static_cast<unsigned char>(c));
 }
 
-} // namespace VietIntent
+}

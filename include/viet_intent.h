@@ -35,6 +35,6 @@ private:
     std::unique_ptr<Impl> pimpl;
 };
 
-} // namespace VietIntent
+}
 
 #endif

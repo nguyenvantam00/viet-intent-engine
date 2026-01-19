@@ -1,22 +1,18 @@
 import viet_intent
 
 def main():
-    # Khởi tạo engine
     engine = viet_intent.IntentEngine()
 
-    # Khởi tạo với model mặc định
     if not engine.initialize():
         print("Không thể khởi tạo engine!")
         return
 
-    # Thêm intent tùy chỉnh
     engine.add_intent(
         "book_hotel",
         ["đặt phòng khách sạn", "tôi muốn book phòng", "đặt phòng nghỉ"],
         "Bạn muốn đặt phòng loại nào ạ?"
     )
 
-    # Phát hiện ý định
     test_sentences = [
         "xin chào bạn",
         "tôi muốn đặt món phở",

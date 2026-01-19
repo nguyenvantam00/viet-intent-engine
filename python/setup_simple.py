@@ -1,4 +1,3 @@
-# setup_simple.py
 from setuptools import setup, Extension
 import os
 import sys
@@ -24,7 +23,7 @@ except ImportError:
 include_dirs = [
     include_dir,
     pybind11_include,
-    pybind11.get_include(True)  # pybind11 user include
+    pybind11.get_include(True)
 ]
 
 # Extension module

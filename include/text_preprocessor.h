@@ -22,6 +22,6 @@ private:
     static char remove_tone(char c);
 };
 
-} // namespace VietIntent
+}
 
 #endif

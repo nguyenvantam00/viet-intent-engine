@@ -110,7 +110,7 @@ public:
             "thanks you", "thank", "cam on", "cảm ơn"
         };
         thank_you.keywords = {"cảm ơn", "cam on", "cám ơn", "thanks", "thank", "xin cảm ơn", "xin cam on"};
-        thank_you.threshold = 0.5;  // Ngưỡng cao hơn để tránh nhầm lẫn
+        thank_you.threshold = 0.5;
         intent_patterns["thank_you"] = thank_you;
         response_patterns["thank_you"] = "Không có gì! Rất vui được giúp bạn!";
 
@@ -123,7 +123,7 @@ public:
             "bye bye", "good night", "chuc ngu ngon"
         };
         goodbye.keywords = {"tạm biệt", "tam biet", "bye", "goodbye", "good night", "see you"};
-        goodbye.threshold = 0.6;  // Ngưỡng cao để tránh nhầm với greeting
+        goodbye.threshold = 0.6;
         intent_patterns["goodbye"] = goodbye;
         response_patterns["goodbye"] = "Tạm biệt! Hẹn gặp lại bạn!";
     }
@@ -348,7 +348,7 @@ IntentResult IntentDetector::detect(const std::string& text) {
     std::string best_intent = "unknown";
     std::map<std::string, std::string> entities;
 
-    // ƯU TIÊN THEO THỨ TỰ: greeting > order_food > ask_price > ask_time > thank_you > goodbye
+
     std::vector<std::string> intent_order = {"greeting", "order_food", "ask_price", "ask_time", "thank_you", "goodbye"};
 
     for (const auto& intent_name : intent_order) {
@@ -439,7 +439,7 @@ IntentResult IntentDetector::detect(const std::string& text) {
             if (normalized.find("tam biet") == std::string::npos &&
                 normalized.find("bye") == std::string::npos &&
                 normalized.find("goodbye") == std::string::npos) {
-                score *= 0.5;  // Giảm điểm nếu không có từ khóa rõ ràng
+                score *= 0.5;
             }
         }
 
@@ -513,8 +513,7 @@ IntentResult IntentDetector::detect(const std::string& text) {
         result.response_pattern = pimpl->response_patterns[best_intent];
     }
 
-    std::cout << "[DEBUG] Final result: " << best_intent << " (" << best_score << ")" << std::endl;
-    std::cout << "----------------------------------------" << std::endl;
+    std::cout << "Final result: " << best_intent << " (" << best_score << ")" << std::endl;
 
     return result;
 }
@@ -532,9 +531,7 @@ bool IntentDetector::load_from_json(const std::string& filepath) {
     std::cout << "[IntentDetector] Loading from JSON: " << filepath
               << " (using enhanced default patterns)" << std::endl;
 
-    // Trong phiên bản này, luôn dùng patterns mặc định đã được cải thiện
-    // Có thể mở rộng để đọc file JSON thực sự sau
     return true;
 }
 
-} // namespace VietIntent
+}

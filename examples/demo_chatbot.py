@@ -1,4 +1,3 @@
-# demo_chatbot.py
 import viet_intent
 import time
 
@@ -8,7 +7,6 @@ class VietnameseChatbot:
         self.running = True
 
     def get_response(self, intent, entities, confidence):
-        """Tạo phản hồi dựa trên intent"""
         responses = {
             "greeting": [
                 "Xin chào! Tôi có thể giúp gì cho bạn?",
@@ -43,16 +41,15 @@ class VietnameseChatbot:
         return responses["unknown"][0]
 
     def run(self):
-        print("🤖 Vietnamese Chatbot (Type 'quit' to exit)")
+        print("Vietnamese Chatbot (Type 'quit' to exit)")
         print("=" * 50)
 
         while self.running:
             try:
-                # Nhập câu từ người dùng
                 user_input = input("\n👤 You: ").strip()
 
                 if user_input.lower() in ['quit', 'exit', 'bye']:
-                    print("🤖 Chatbot: Tạm biệt! Hẹn gặp lại!")
+                    print("Chatbot: Tạm biệt! Hẹn gặp lại!")
                     self.running = False
                     continue
 
@@ -69,9 +66,8 @@ class VietnameseChatbot:
                     result.confidence
                 )
 
-                # Hiển thị kết quả
-                print(f"🤖 Chatbot: {response}")
-                print(f"   [Intent: {result.intent}, Confidence: {result.confidence:.2f}]")
+                print(f"Chatbot: {response}")
+                print(f"[Intent: {result.intent}, Confidence: {result.confidence:.2f}]")
                 if result.entities:
                     print(f"   [Entities: {result.entities}]")
 

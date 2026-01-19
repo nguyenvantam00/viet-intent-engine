@@ -1,4 +1,3 @@
-# benchmark.py
 import viet_intent
 import time
 
@@ -16,7 +15,7 @@ def benchmark():
         "bây giờ là mấy giờ",
         "đặt phòng khách sạn",
         "tôi cần thuê xe"
-    ] * 100  # Lặp lại 100 lần để test hiệu năng
+    ] * 100
 
     print("🚀 Running benchmark...")
     print(f"Total queries: {len(test_sentences)}")

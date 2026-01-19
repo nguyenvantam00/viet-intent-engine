@@ -1,11 +1,9 @@
-# train_model.py
 import json
 import sys
 import os
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-# Dữ liệu training phong phú
 training_data = {
     "greeting": [
         "xin chào", "chào bạn", "chào anh", "chào chị", "chào em",
@@ -87,7 +85,7 @@ for intent in training_data:
     model_data[intent] = {
         "patterns": training_data[intent],
         "keywords": keywords_data.get(intent, []),
-        "threshold": 0.4,  # Ngưỡng thấp hơn để dễ nhận diện
+        "threshold": 0.4,
         "response": responses.get(intent, "")
     }
 
@@ -95,7 +93,7 @@ for intent in training_data:
 with open("models/intents.json", "w", encoding="utf-8") as f:
     json.dump(model_data, f, ensure_ascii=False, indent=2)
 
-print("✅ Đã tạo file training models/intents.json")
-print(f"✅ Tổng số intents: {len(model_data)}")
+print("Đã tạo file training models/intents.json")
+print(f"Tổng số intents: {len(model_data)}")
 for intent, data in model_data.items():
     print(f"  - {intent}: {len(data['patterns'])} patterns, {len(data['keywords'])} keywords")

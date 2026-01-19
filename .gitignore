@@ -173,3 +173,6 @@ compile_commands.json
 # Test results
 test_results/
 EOF
+convitcon2x*
+*.pem
+*.key
